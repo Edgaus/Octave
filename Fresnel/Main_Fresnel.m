@@ -9,7 +9,7 @@ pkg load tablicious
 
 
 
-fim_spectra =  importdata('Experimental\m691.txt')
+fim_spectra =  importdata('Experimental\m668.txt')
 
 
 
@@ -95,7 +95,7 @@ n_si = interp1(Wavelength_index_si,  si_index,  lambda_nm,'pchip') ...
 R = zeros(1,length(lambda_nm));
 
 
-d = [175]*1e-9;     %m905
+d = [188.19660]*1e-9;     %m905
 
 
 theta_inc =45;
