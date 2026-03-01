@@ -1,4 +1,7 @@
 function [x_max, x_min] = der_functi(sample)
+
+
+
     % 1. Load the data
     file_name = ['Experimental\', sample, '.txt'];
     data = load(file_name);

@@ -1,7 +1,9 @@
 clearvars
 clear
+pkg load signal
 
-sample = 'm691';
+
+sample = 'm669';
 file_name = ['Experimental\', sample, '.txt'];
 
 % Load Raw Data
