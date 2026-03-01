@@ -23,7 +23,7 @@ function [n, k] = adachi_full(E, E0, Gamma0, A0, E1, Gamma1, B1, A_ex, Eb, Gamma
     % ----------------------------------------------------
     % 4. Total Complex Dielectric Function
     % ----------------------------------------------------
-    eps = eps_inf + eps_0 + eps_ex + eps_1;
+    eps = eps_inf + eps_0 + eps_1
 
     % ----------------------------------------------------
     % 5. Extract n and k robustly
