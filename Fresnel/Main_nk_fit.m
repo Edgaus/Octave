@@ -58,8 +58,23 @@ fprintf('A_ex:       %.4f\n', best_A_ex); % <--- Printed successfully!
 % ========================================================
 % 4. PLOT THE FIT MATCH
 % ========================================================
+% ========================================================
+% 4. PLOT THE FIT MATCH
+% ========================================================
 % Pass all 8 parameters into the math engine
 [n_sim, k_sim] = adachi_ext(Energy_eV, best_E0, best_Gamma0, best_A0, best_E1, best_Gamma1, best_B1, best_eps_inf, best_A_ex);
+
+figure(1); clf;
+
+subplot(2,1,1);
+plot(lambda_nm, n_exp, 'k-', 'LineWidth', 2, 'DisplayName', 'Target n Data'); hold on;
+plot(lambda_nm, n_sim, 'b--', 'LineWidth', 2, 'DisplayName', 'Adachi Fit n');
+ylabel('Refractive Index (n)'); title('Adachi Pre-Fit Match'); legend('Location', 'northeast'); grid on; xlim([187, 400]);
+
+subplot(2,1,2);
+plot(lambda_nm, k_exp, 'k-', 'LineWidth', 2, 'DisplayName', 'Target k Data'); hold on;
+plot(lambda_nm, k_sim, 'r--', 'LineWidth', 2, 'DisplayName', 'Adachi Fit k');
+xlabel('Wavelength (nm)'); ylabel('Extinction Coeff (k)'); legend('Location', 'northeast'); grid on; xlim([187, 400]);chi_ext(Energy_eV, best_E0, best_Gamma0, best_A0, best_E1, best_Gamma1, best_B1, best_eps_inf, best_A_ex);
 
 
 % ========================================================
