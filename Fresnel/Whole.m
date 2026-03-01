@@ -3,8 +3,11 @@ clear
 pkg load signal
 
 
-sample = 'm669';
+sample = 'm691';
 file_name = ['Experimental\', sample, '.txt'];
+limit_1 = 250
+limit_2 = 390
+
 
 % Load Raw Data
 data = load(file_name);
@@ -14,7 +17,7 @@ y_full = data(:, 2);
 % --- 1. GET EXPERIMENTAL PEAKS ---
 % This is done ONLY ONCE before the optimization starts
 disp('Extracting Experimental Peaks...');
-[x_max_exp, x_min_exp] = der_functi(sample);
+[x_max_exp, x_min_exp] = der_functi(sample,limit_1, limit_2);
 
 disp('Experimental Maxima found at:'); disp(x_max_exp');
 disp('Experimental Minima found at:'); disp(x_min_exp');
@@ -37,7 +40,7 @@ Wavelength_extin_si = extintion_coeff_si(:, 1);
 si_extin = extintion_coeff_si(:, 2);
 
 % Interpolate onto standard wavelength grid
-lambda_nm = linspace(225, 390, 750);  % [nm]
+lambda_nm = linspace(limit_1, limit_2, 750);  % [nm]
 
 n_aln = interp1(Wavelength_index_aln, aln_index, lambda_nm, 'pchip') ...
      - 1i*interp1(Wavelength_extin_aln, aln_extin, lambda_nm, 'pchip');

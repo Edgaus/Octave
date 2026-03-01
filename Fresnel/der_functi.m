@@ -1,4 +1,4 @@
-function [x_max, x_min] = der_functi(sample)
+function [x_max, x_min] = der_functi(sample, limit_1, limit_2)
 
 
 
@@ -10,7 +10,7 @@ function [x_max, x_min] = der_functi(sample)
 
     % --- NEW: Crop the data to the region of interest (225 - 390 nm) ---
     % This prevents the massive noise spikes below 225nm from being counted as peaks.
-    region_idx = find(x_full >= 225 & x_full <= 390);
+    region_idx = find(x_full >= limit_1 & x_full <= limit_2);
     x = x_full(region_idx);
     y_raw = y_raw_full(region_idx);
 
