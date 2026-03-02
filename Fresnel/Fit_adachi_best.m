@@ -36,7 +36,7 @@ function [total_error, R_opt, n_out, k_out] = Fit_adachi_best(x, Ener_region, th
         W(uv_region) = 100;
 
         y_exp_row = y_exp_a(:)';
-        relative_error = abs( (R ./ y_exp_row) - 1 );
+        relative_error = (abs( (R ./ y_exp_row) - 1 ));
         total_error = sum( W .* relative_error );
     end
 

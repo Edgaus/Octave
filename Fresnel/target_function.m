@@ -36,14 +36,14 @@ function [total_error, R_opt] = target_function_peaks(thick, n_aln, n_si, lambda
         [~, closest_idx] = min(abs(sim_x_max - exp_x_max(i)));
         matched_sim_x = sim_x_max(closest_idx);
         % sum( abs(sim_x / raw_x - 1) )
-        total_error = total_error + abs(matched_sim_x / exp_x_max(i) - 1);
+        total_error = total_error + ( abs(matched_sim_x / exp_x_max(i) - 1) ).^2;
     end
 
     % Compare Minima
     for i = 1:length(exp_x_min)
         [~, closest_idx] = min(abs(sim_x_min - exp_x_min(i)));
         matched_sim_x = sim_x_min(closest_idx);
-        total_error = total_error + abs(matched_sim_x / exp_x_min(i) - 1);
+        total_error = total_error +( abs(matched_sim_x / exp_x_min(i) - 1)).^2;
     end
 
     % --- D. Apply Mismatch Penalty ---

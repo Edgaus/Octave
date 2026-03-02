@@ -3,9 +3,9 @@ clear
 pkg load signal
 
 
-sample = 'm691';
+sample = 'm672';
 file_name = ['Experimental\', sample, '.txt'];
-limit_1 = 250
+limit_1 = 215
 limit_2 = 390
 
 
