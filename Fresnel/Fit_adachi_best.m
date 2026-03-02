@@ -29,8 +29,8 @@ function [total_error, R_opt, n_out, k_out] = Fit_adachi_best(x, Ener_region, th
     % Give the optimizer room to search!
     if E0_g < 5.5 || E0_g > 6.5
         total_error = 1e18;
-    elseif A0_g < 0 || B1_g < 0 || eps_inf_g < 0 || Gamma0_g < 0 || Gamma1_g < 0
-        total_error = 1e6;
+    elseif A0_g < 0 || B1_g < 0 || eps_inf_g < 0
+        total_error = 1e18;
     else
         W = ones(1, length(lambda_region));
         uv_region = find(lambda_region <= 225);

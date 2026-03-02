@@ -14,7 +14,7 @@ x_raw = data(:, 1); % Wavelength in nm
 y_raw = data(:, 2); % Reflectance (0 to 1)
 
 % Safely extract the exact region of interest DIRECTLY from the data
-region_idx = find(x_raw >= 210 & x_raw <= 400.75);
+region_idx = find(x_raw >= 200 & x_raw <= 400.75);
 lambda_nm = x_raw(region_idx);
 y_exp = y_raw(region_idx);
 
@@ -32,7 +32,7 @@ else
 end
 
 % Guesses: [E0, A0, E1, B1, eps_inf]
-x_guess = [5.2, 30.0, 10, 2.0, 4.0,-2];
+x_guess = [6, 30.0, 10, 2.0, 4.0,-2];
 
 options = optimset('Display', 'iter', 'MaxIter', 2000, 'MaxFunEvals', 4000, 'TolX', 1e-4);
 
@@ -61,8 +61,6 @@ fprintf('eps_inf:    %.2f\n', best_eps_inf);
 % 4. EXTRACT AND PLOT
 % ========================================================
 [~, R_simulated, n_final, k_final] = Fit_adachi_best(best_params, Energy_eV, thickness, y_exp, lambda_nm);
-
-
 
 % Save Data
 Wavelength_col = lambda_nm(:);
