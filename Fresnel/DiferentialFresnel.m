@@ -22,7 +22,7 @@ filename = 'Si_n2.txt';
 % NOTE: If importdata fails in Octave, change the next line to: B = load(filename);
 [B, ~] = importdata(filename);
 
-filename = 'AlN-n.dat';
+filename = ['Simulation\', sample, 'nk_sim_.txt'];
 % NOTE: If importdata fails here, change to: AlNn = dlmread(filename, '', 1, 0);
 [AlNn, delimiterOut] = importdata(filename);
 

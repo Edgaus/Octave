@@ -6,7 +6,7 @@ clear all;
 % ========================================================
 % 1. LOAD AND ALIGN DATA
 % ========================================================
-sample = 'm669';
+sample = 'm691';
 file_name = ['Experimental\', sample, '.txt'];
 data = load(file_name);
 
@@ -27,6 +27,12 @@ if strcmp(sample, 'm668')
     thickness = 162.31601;
 elseif strcmp(sample, 'm669')
     thickness = 211.43622;
+elseif strcmp(sample, 'm672')
+    thickness = 193.77740;
+elseif strcmp(sample, 'm687')
+    thickness = 204.78842;
+elseif strcmp(sample, 'm691')
+    thickness = 176.29674;
 else
     thickness = 200; % Fallback
 end
@@ -62,17 +68,55 @@ fprintf('eps_inf:    %.2f\n', best_eps_inf);
 % ========================================================
 [~, R_simulated, n_final, k_final] = Fit_adachi_best(best_params, Energy_eV, thickness, y_exp, lambda_nm);
 
-% Save Data
+% Save Reflectance
+% ========================================================
 Wavelength_col = lambda_nm(:);
-Reflectance_col = R_simulated(:);
-datos_finales = [Wavelength_col, Reflectance_col];
+Reflectance_sim_col = R_simulated(:);
+Reflectance_exp_col = y_exp(:);
+
+file_name1 = ['Simulation\', sample, 'Reflec_sim_.txt'];
+datos_finales1 = [Wavelength_col, Reflectance_sim_col, Reflectance_exp_col];
 
 % Ensure the 'Simulation' folder exists in your directory!
-fileID = fopen('Simulation\AlN_nk.txt', 'w');
-fprintf(fileID, 'Wavelength\tReflectance\n');
-fprintf(fileID, '%e\t%f\n', datos_finales');
+fileID = fopen(file_name1, 'w');
+
+% CORRECCIÓN: Le agregamos el texto del encabezado
+fprintf(fileID, 'Wavelength(nm)\tR_simulated\tR_experimental\n');
+
+% Guardamos los números
+fprintf(fileID, '%e\t%f\t%f\n', datos_finales1');
 fclose(fileID);
-disp('Los datos se han guardado exitosamente en Simulation\AlN_nk.txt');
+
+disp(['Los datos se han guardado exitosamente en ', file_name1]);
+
+
+
+% Save Index
+% ========================================================
+Wavelength_col = lambda_nm(:);
+n_sim_col = n_final(:);
+k_sim_col = k_final(:);
+
+file_name2 = ['Simulation\', sample, 'nk_sim_.txt'];
+datos_finales2 = [1240./Wavelength_col, n_sim_col, k_sim_col];
+
+% CORRECCIÓN 1: Usamos file_name2 para no borrar el archivo anterior
+fileID = fopen(file_name2, 'w');
+
+% CORRECCIÓN 2: Reemplazamos el fprintf vacío por los encabezados de columna
+%fprintf(fileID, 'Wavelength(nm)\tn\tk\n');
+
+% Guardamos la matriz de datos
+fprintf(fileID, '%e\t%f\t%f\n', datos_finales2');
+fclose(fileID);
+
+% CORRECCIÓN 3: Actualizamos el mensaje para que muestre el archivo correcto
+disp(['Los datos n y k se han guardado exitosamente en ', file_name2]);
+
+
+
+
+
 
 % Plot Reflectance
 figure(1); clf;
