@@ -6,7 +6,7 @@ clear all;
 % ========================================================
 % 1. LOAD AND ALIGN DATA
 % ========================================================
-sample = 'm668';
+sample = 'm669';
 file_name = ['Experimental\', sample, '.txt'];
 data = load(file_name);
 
@@ -14,7 +14,7 @@ x_raw = data(:, 1); % Wavelength in nm
 y_raw = data(:, 2); % Reflectance (0 to 1)
 
 % Safely extract the exact region of interest DIRECTLY from the data
-region_idx = find(x_raw >= 200 & x_raw <= 400.75);
+region_idx = find(x_raw >= 210 & x_raw <= 400.75);
 lambda_nm = x_raw(region_idx);
 y_exp = y_raw(region_idx);
 
@@ -31,8 +31,8 @@ else
     thickness = 200; % Fallback
 end
 
-% Guesses: [E0, Gamma0, A0, E1, Gamma1, B1, eps_inf]
-x_guess = [5.9, 0.025, 35.0, 8.70, 0.60, 2.0, 1.5]; % Changed E0 guess to 5.9 to sit safely inside bounds
+% Guesses: [E0, A0, E1, B1, eps_inf]
+x_guess = [5.2, 30.0, 10, 2.0, 4.0,-2];
 
 options = optimset('Display', 'iter', 'MaxIter', 2000, 'MaxFunEvals', 4000, 'TolX', 1e-4);
 
@@ -45,19 +45,15 @@ disp('Starting Master Optical Optimization...');
 
 % Unpack the winning parameters
 best_E0       = best_params(1);
-best_Gamma0   = best_params(2);
-best_A0       = best_params(3);
-best_E1       = best_params(4);
-best_Gamma1   = best_params(5);
-best_B1       = best_params(6);
-best_eps_inf  = best_params(7);
+best_A0       = best_params(2);
+best_E1       = best_params(3);
+best_B1       = best_params(4);
+best_eps_inf  = best_params(5);
 
 fprintf('\n=== OPTIMIZATION COMPLETE ===\n');
 fprintf('E0:         %.3f eV\n', best_E0 );
 fprintf('A0:         %.2f\n', best_A0);
-fprintf('Gamma0:     %.3f\n', best_Gamma0);
 fprintf('E1:         %.2f\n', best_E1);
-fprintf('Gamma1:     %.2f\n', best_Gamma1);
 fprintf('B1:         %.2f\n', best_B1);
 fprintf('eps_inf:    %.2f\n', best_eps_inf);
 
@@ -65,6 +61,8 @@ fprintf('eps_inf:    %.2f\n', best_eps_inf);
 % 4. EXTRACT AND PLOT
 % ========================================================
 [~, R_simulated, n_final, k_final] = Fit_adachi_best(best_params, Energy_eV, thickness, y_exp, lambda_nm);
+
+
 
 % Save Data
 Wavelength_col = lambda_nm(:);
