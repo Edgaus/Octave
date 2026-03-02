@@ -19,8 +19,6 @@ k_exp = data_k(:,2);
 % 2. INITIALIZE THE OPTIMIZER
 % ========================================================
 % Guesses: [E0, A0, E1, B1, eps_inf]
-% eps_inf given a strong start (4.0) to lift the blue line
-% A_ex added back to capture the sharp spikes
 x_guess = [5.2, 30.0, 10, 2.0, 4.0,-2];
 
 options = optimset('Display', 'iter', 'MaxIter', 4000, 'MaxFunEvals', 6000, 'TolX', 1e-5);
@@ -42,10 +40,8 @@ best_eps_inf  = best_params(5);
 
 fprintf('\n=== PRE-FIT OPTIMIZATION COMPLETE ===\n');
 fprintf('E0:         %.4f eV\n', best_E0 );
-
 fprintf('A0:         %.4f\n', best_A0);
 fprintf('E1:         %.4f eV\n', best_E1);
-
 fprintf('B1:         %.4f\n', best_B1);
 fprintf('eps_inf:    %.4f\n', best_eps_inf);
 
