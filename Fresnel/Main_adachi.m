@@ -6,7 +6,7 @@ clear all;
 % ========================================================
 % 1. LOAD AND ALIGN DATA
 % ========================================================
-sample = 'm691';
+sample = 'm669';
 file_name = ['Experimental\', sample, '.txt'];
 data = load(file_name);
 
