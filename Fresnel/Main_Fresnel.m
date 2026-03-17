@@ -9,7 +9,7 @@ pkg load tablicious
 
 
 
-fim_spectra =  importdata('Experimental\m668.txt')
+fim_spectra =  importdata('Experimental\AlN_Film_200.txt')
 
 
 
@@ -26,8 +26,8 @@ film_spe = fim_spectra(:, 2)*100;
 
 
 
-index_refrac_aln =  importdata('Data\AlN_n2.txt')
-
+#index_refrac_aln =  importdata('Simulation\m668_n.txt')
+index_refrac_aln =  importdata('Data\AlN_Film_n2.txt')
 
 
 % 3. Extract your columns into two arrays
@@ -35,8 +35,8 @@ Wavelength_index_aln = index_refrac_aln(:, 1)*1e-9 ;
 aln_index = index_refrac_aln(:, 2);
 
 
-extintion_coeff =  importdata('Data\AlN_k2.txt')
-
+#extintion_coeff =  importdata('Simulation\m668_k.txt')
+extintion_coeff =  importdata('Data\AlN_Film_k2.txt')
 
 
 % 3. Extract your columns into two arrays
@@ -74,7 +74,7 @@ si_extin = extintion_coeff_si(:, 2);
 
 %%  Interpolate complex indices
 
-lambda_nm = linspace(150,400,750)*1e-9 ;  % [nm]
+lambda_nm = linspace(250,1100,750)*1e-9 ;  % [nm]
 
 
 n0 = 1.0;  % air
@@ -87,15 +87,13 @@ n_si = interp1(Wavelength_index_si,  si_index,  lambda_nm,'pchip') ...
      - 1i*interp1(Wavelength_extin_si,  si_extin,  lambda_nm,'pchip');
 
 
-
-
 %% Initial Conditions
 
 
 R = zeros(1,length(lambda_nm));
 
 
-d = [188.19660]*1e-9;     %m905
+d = [200]*1e-9;     %m905
 
 
 theta_inc =45;
