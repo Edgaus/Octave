@@ -7,6 +7,7 @@ function [total_error, R_opt, n_out, k_out] = Fit_adachi_best(x, Ener_region, th
     B1_g        = x(4);
     eps_inf_g   = x(5);
 
+
     % 2. Generate n and k (Calling adachi_full correctly)
     [n_aln, k_aln] = adachi_ext(Ener_region, E0_g, A0_g, E1_g, B1_g, eps_inf_g);
     n_complex_aln = n_aln - 1i * k_aln;
@@ -33,7 +34,7 @@ function [total_error, R_opt, n_out, k_out] = Fit_adachi_best(x, Ener_region, th
         total_error = 1e18;
     else
         W = ones(1, length(lambda_region));
-        uv_region = find(lambda_region <= 225);
+        uv_region = find(lambda_region <= 205);
         W(uv_region) = 100;
 
         y_exp_row = y_exp_a(:)';

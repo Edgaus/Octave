@@ -6,7 +6,7 @@ clear all;
 % ========================================================
 % 1. LOAD AND ALIGN DATA
 % ========================================================
-sample = 'm691';
+sample = 'm668';
 file_name = ['Experimental\', sample, '.txt'];
 data = load(file_name);
 
@@ -14,7 +14,7 @@ x_raw = data(:, 1); % Wavelength in nm
 y_raw = data(:, 2); % Reflectance (0 to 1)
 
 % Safely extract the exact region of interest DIRECTLY from the data
-region_idx = find(x_raw >= 200 & x_raw <= 400.75);
+region_idx = find(x_raw >= 187.5 & x_raw <= 400.75);
 lambda_nm = x_raw(region_idx);
 y_exp = y_raw(region_idx);
 
@@ -37,8 +37,8 @@ else
     thickness = 200; % Fallback
 end
 
-% Guesses: [E0, A0, E1, B1, eps_inf]
-x_guess = [6, 30.0, 10, 2.0, 4.0,-2];
+% Guesses: [E0, A0, E1, B1, eps_inf, off]
+x_guess = [6, 30.0, 10, 2.0, 4.0];
 
 options = optimset('Display', 'iter', 'MaxIter', 2000, 'MaxFunEvals', 4000, 'TolX', 1e-4);
 
@@ -98,7 +98,7 @@ n_sim_col = n_final(:);
 k_sim_col = k_final(:);
 
 file_name2 = ['Simulation\', sample, 'nk_sim_.txt'];
-datos_finales2 = [1240./Wavelength_col, n_sim_col, k_sim_col];
+datos_finales2 = [Wavelength_col, n_sim_col, k_sim_col];
 
 % CORRECCIÓN 1: Usamos file_name2 para no borrar el archivo anterior
 fileID = fopen(file_name2, 'w');

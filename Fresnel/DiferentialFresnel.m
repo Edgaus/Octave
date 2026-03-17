@@ -1,7 +1,7 @@
 clear
 clearvars
 
-sample = 'm668'
+sample = 'm669'
 filename = ['Experimental\',sample,'_deltaRR.txt'];
 % 1. Read the file into a single structure variable
 rawData = importdata(filename, "\t", 1);
@@ -26,7 +26,7 @@ filename = ['Simulation\', sample, 'nk_sim_.txt'];
 % NOTE: If importdata fails here, change to: AlNn = dlmread(filename, '', 1, 0);
 [AlNn, delimiterOut] = importdata(filename);
 
-Eg = 6.12
+Eg = 6.3
 
 gm = 0.025;        % valor del ensanchamiento en eV
 dW = 5*(4.5E-4);   % cambio del punto critico (dw/dT)*dT  dT=1;
@@ -36,8 +36,8 @@ rs = 0.1;
 
 for kk = 1:200
     l = 199.9 + kk*rs;
-    nn0(kk) = interp1(AlNn(:,1), AlNn(:,2), l+200-lg);
-    kk0(kk) = interp1(AlNn(:,1), AlNn(:,3), l+200-lg);
+    nn0(kk) = interp1(AlNn(:,1), AlNn(:,2), l+197-lg);
+    kk0(kk) = interp1(AlNn(:,1), AlNn(:,3), l+197-lg);
     nsi(kk) = interp1(B(:,1), B(:,2), l);
     wl(kk) = l;
 end
@@ -96,7 +96,7 @@ R_per = zeros(1,length(wl));
 DeltaR = zeros(1,length(wl));
 
 
-d =[170]*1e-9;     %m905
+d =[211]*1e-9;     %m905
 
 n0 = 1
 theta_inc =45;
