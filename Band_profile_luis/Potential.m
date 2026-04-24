@@ -13,12 +13,12 @@ n = 4; %
 s = 0.122;
 
 %3 Functions
-bowing_AlInN = bowing_function(x_In, b0, x0, n, s) 
+bowing_AlInN = bowing_function(x_In, b0, x0, n, s) ;
 vl_band_gap_AlInN = @(x) (AlN_gap.*(1-x) + InN_gap.*x) - ...
                    (bowing_function(x, b0, x0, n, s) .* x .* (1-x));
 
 %4 Values
-gap_AlInN = vl_band_gap_AlInN(x_In)
+gap_AlInN = vl_band_gap_AlInN(x_In);
 
 %% %%%%%%%%%%%% Campos Pz Ps%%%%%%%%%%%%%%%%%%
 
@@ -36,7 +36,7 @@ C13_AlN = 99; % GPa
 
 % InN constants
 
-Ps_InN = -0.032;  % C/m2
+Ps_InN = -0.042;  % C/m2
 
 a_InN = 3.533; % Armostrongs
 e31_InN = -0.57; % C/m2 
@@ -56,11 +56,18 @@ e33_AlInN = vegard_law( x_In, e33_AlN, e33_InN  );
 C33_AlInN = vegard_law( x_In, C33_AlN, C33_InN  );
 C13_AlInN = vegard_law( x_In, C13_AlN, C13_InN  );
 
-pref_pz = e31_AlInN + e33_AlInN.*( C13_AlInN./C33_AlInN );
+pref_pz = e31_AlInN - e33_AlInN.*( C13_AlInN./C33_AlInN );
 strain = (a_AlInN - a_AlN)/a_AlN ; % Para capa AlN relajada y AlInN tensa
 
 % Calculo campos polarización
 
-Pz = pref_pz.*strain
-Ps = vegard_law( x_In, Ps_AlN, Ps_InN  )
+Ps = vegard_law( x_In, Ps_AlN, Ps_InN  );
 
+residual_stress = 9;  %  
+Pz = -2*pref_pz.*strain*(residual_stress)./100;
+
+fprintf(' \n Los campos Pizoelectricos :\n');
+fprintf('%-12.5g ', Pz);
+
+fprintf('\n \n Los campos Espontaneos:\n');
+fprintf('%-12.5g ', Ps);
