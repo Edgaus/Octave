@@ -13,7 +13,7 @@ n = 4; %
 s = 0.122;
 
 %3 Functions
-bowing_AlInN = bowing_function(x_In, b0, x0, n, s) 
+bowing_AlInN = bowing_function(x_In, b0, x0, n, s); 
 vl_band_gap_AlInN = @(x) (AlN_gap.*(1-x) + InN_gap.*x) - ...
                    (bowing_function(x, b0, x0, n, s) .* x .* (1-x));
 
@@ -71,3 +71,20 @@ fprintf('%-12.5g ', Pz);
 
 fprintf('\n \n Los campos Espontaneos:\n');
 fprintf('%-12.5g ', Ps);
+
+%%% Contruccion de las bandas de energía %%%%
+
+thickness_well = 10e-9;
+thickness_barrier = 25e-9;
+
+
+conduction_band_edge_profile = @(x)    ( 1 - heaviside(x-225))*AlN_gap + ...
+                    (heaviside(x-225) - heaviside(x-235))*gap_AlInN(1) + ...
+                    ( heaviside(x-235) - heaviside(x-260))*AlN_gap + ...
+                    (heaviside(x-260) - heaviside(x-270))*gap_AlInN(2) + ...
+                    ( heaviside(x-270) - heaviside(x-295))*AlN_gap + ...
+                    ( heaviside(x-295) - heaviside(x-305))*gap_AlInN(3) + ...
+                    ( heaviside(x-305) - heaviside(x-331))*AlN_gap;
+
+x = linspace(0,330, 330);
+plot(x, band_pont(x))
