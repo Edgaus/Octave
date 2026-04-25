@@ -7,18 +7,18 @@ x_In = [0.2, 0.21, 0.22];
 
 
 %2 Papers data
-b0 = 28.3;  %eV
+b0 = 14.3;  %eV
 x0 = 0.01;
 n = 4; %
 s = 0.122;
 
 %3 Functions
-bowing_AlInN = bowing_function(x_In, b0, x0, n, s) ;
+bowing_AlInN = bowing_function(x_In, b0, x0, n, s) 
 vl_band_gap_AlInN = @(x) (AlN_gap.*(1-x) + InN_gap.*x) - ...
                    (bowing_function(x, b0, x0, n, s) .* x .* (1-x));
 
 %4 Values
-gap_AlInN = vl_band_gap_AlInN(x_In);
+gap_AlInN = vl_band_gap_AlInN(x_In)
 
 %% %%%%%%%%%%%% Campos Pz Ps%%%%%%%%%%%%%%%%%%
 
